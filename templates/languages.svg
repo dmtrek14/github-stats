@@ -17,7 +17,7 @@ svg {
 }
 
 #gh-dark-mode-only:target #background {
-  fill: #3B4252;
+  fill: #2E3440;
   stroke-width: 0.5px;
 }
 
