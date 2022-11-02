@@ -9,15 +9,15 @@ svg {
 #background {
   width: calc(100% - 10px);
   height: calc(100% - 10px);
-  fill: white;
-  stroke: rgb(225, 228, 232);
+  fill: #ECEFF4;
+  stroke: #D8DEE9;
   stroke-width: 1px;
   rx: 6px;
   ry: 6px;
 }
 
 #gh-dark-mode-only:target #background {
-  fill: #0d1117;
+  fill: #3B4252;
   stroke-width: 0.5px;
 }
 
@@ -37,8 +37,8 @@ h2 {
 }
 
 #gh-dark-mode-only:target h2 {
-  color: #c9d1d9;
-  fill: #c9d1d9;
+  color: #81A1C1;
+  fill: #81A1C1;
 }
 
 ul {
@@ -71,37 +71,37 @@ div.ellipsis {
 }
 
 .octicon {
-  fill: rgb(88, 96, 105);
+  fill: #4C566A;
   margin-right: 0.5ch;
   vertical-align: top;
 }
 
 #gh-dark-mode-only:target .octicon {
-  color: #8b949e;
-  fill: #8b949e;
+  color: #D8DEE9;
+  fill: #D8DEE9;
 }
 
 .progress {
   display: flex;
   height: 8px;
   overflow: hidden;
-  background-color: rgb(225, 228, 232);
+  background-color: #D8DEE9;
   border-radius: 6px;
   outline: 1px solid transparent;
   margin-bottom: 1em;
 }
 
 #gh-dark-mode-only:target .progress {
-  background-color: rgba(110, 118, 129, 0.4);
+  background-color: rgba(76, 86, 106, 0.4);
 }
 
 .progress-item {
-  outline: 2px solid rgb(225, 228, 232);
+  outline: 2px solid #D8DEE9;
   border-collapse: collapse;
 }
 
 #gh-dark-mode-only:target .progress-item {
-  outline: 2px solid #393f47;
+  outline: 2px solid #4C566A;
 }
 
 .lang {
@@ -111,7 +111,7 @@ div.ellipsis {
 }
 
 #gh-dark-mode-only:target .lang {
-  color: #c9d1d9;
+  color: #ECEFF4;
 }
 
 .percent {
@@ -119,7 +119,7 @@ div.ellipsis {
 }
 
 #gh-dark-mode-only:target .percent {
-  color: #8b949e;
+  color: #E5E9F0;
 }
 </style>
 <g>
