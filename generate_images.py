@@ -99,6 +99,12 @@ async def generate_gists(s: Stats) -> None:
 
     gist_list = ""
     my_gists = await s.gists
+    gist_len = len(await s.repos)
+    gist_list += f"""
+            <span>
+                {gist_len}
+            </span>
+        """
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)
