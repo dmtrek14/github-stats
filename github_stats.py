@@ -194,15 +194,17 @@ class Queries(object):
       }}
     }}
     gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
-        nodes {{
-            resourcePath
-            description
-            createdAt
-            files(limit: 1) {{
-                name
-                language {{
+        edges {{
+            node {{
+                resourcePath
+                description
+                createdAt
+                files(limit: 1) {{
                     name
-                    color
+                    language {{
+                        name
+                        color
+                    }}
                 }}
             }}
         }}
@@ -233,21 +235,24 @@ query {
         """
         return """
         query {
-        viewer {
-            gists(first: 20, privacy: PUBLIC, orderBy: {field: CREATED_AT, direction: DESC}) {
-        nodes {
-            resourcePath
-            description
-            createdAt
-            files(limit: 1) {
-                name
-                language {
-                    name
-                    color
+            viewer {
+                gists(first: 20, privacy: PUBLIC, orderBy: {field: CREATED_AT, direction: DESC}) {
+                    edges {
+                        node {
+                            resourcePath
+                            description
+                            createdAt
+                            files(limit: 1) {
+                                name
+                                language {
+                                    name
+                                    color
+                                }
+                            }
+                        }
+                    }
                 }
             }
-        }
-        }
         }
 """
 
@@ -415,29 +420,29 @@ Languages:
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
-            # for gist in user_gists.get("edges",[]):
-            #     # if gist is None:
-            #     #     continue
-            #     #name = gist.get("node", {}).get("id", "Other")
-            #     name = gist.get("node", {}).get("files", []).get("name", "Other")
-            #     resourcePath = gist.get("resourcePath")
-            #     description = gist.get("description")
-            #     color = gist.get("files", {}).get("language", {}).get("color")
-            #     gists = await self.gists
+            for gist in user_gists.get("edges",[]):
+                # if gist is None:
+                #     continue
+                #name = gist.get("node", {}).get("id", "Other")
+                name = gist.get("node", {}).get("files", []).get("name", "Other")
+                resourcePath = gist.get("resourcePath")
+                description = gist.get("description")
+                color = gist.get("files", {}).get("language", {}).get("color")
+                gists = await self.gists
                 
-            #     # self._gists += {
-            #     #     "name": name,
-            #     #     "resourcePath": resourcePath,
-            #     #     "description": description,
-            #     #     "color": color
-            #     # }
-            #     self._gists.add({
-            #         "name": name,
-            #         "resourcePath": resourcePath,
-            #         "description": description,
-            #         "color": color
-            #     }
-            #     )
+                # self._gists += {
+                #     "name": name,
+                #     "resourcePath": resourcePath,
+                #     "description": description,
+                #     "color": color
+                # }
+                self._gists.add({
+                    "name": name,
+                    "resourcePath": resourcePath,
+                    "description": description,
+                    "color": color
+                }
+                )
             #     gists.add({
             #         "name": name,
             #         "resourcePath": resourcePath,
@@ -516,29 +521,29 @@ Languages:
         """
         if self._gists is not None:
              return self._gists
-        self._gists = set()
-        # await self.get_stats()
-        # assert self._gists is not None
-        # return self._gists
-        all_gists = (
-            (await self.queries.query(Queries.user_gists()))
-            .get("data", {})
-            .get("viewer", {})
-            .get("gists", {})
-        )
-        for gist in all_gists.get("edges",[]):
-            name = gist.get("node", {}).get("files", []).get("name", "Other")
-            resourcePath = gist.get("resourcePath")
-            description = gist.get("description")
-            color = gist.get("files", {}).get("language", {}).get("color")
-            self._gists.add({
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    "color": color
-            })
-
+        #self._gists = set()
+        await self.get_stats()
+        assert self._gists is not None
         return self._gists
+        # all_gists = (
+        #     (await self.queries.query(Queries.user_gists()))
+        #     .get("data", {})
+        #     .get("viewer", {})
+        #     .get("gists", {})
+        # )
+        # for gist in all_gists.get("edges",[]):
+        #     name = gist.get("node", {}).get("files", []).get("name", "Other")
+        #     resourcePath = gist.get("resourcePath")
+        #     description = gist.get("description")
+        #     color = gist.get("files", {}).get("language", {}).get("color")
+        #     self._gists.add({
+        #             "name": name,
+        #             "resourcePath": resourcePath,
+        #             "description": description,
+        #             "color": color
+        #     })
+
+        # return self._gists
 
     @property
     async def languages_proportional(self) -> Dict:
