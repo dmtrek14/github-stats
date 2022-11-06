@@ -407,11 +407,11 @@ Languages:
                             "color": lang.get("node", {}).get("color"),
                         }
 
-            # user_gists = (
-            #     raw_results.get("data", {})
-            #     .get("viewer", {})
-            #     .get("gists", {})
-            # )
+            user_gists = (
+                raw_results.get("data", {})
+                .get("viewer", {})
+                .get("gists", {})
+            )
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
@@ -526,13 +526,19 @@ Languages:
             .get("viewer", {})
             .get("gists", {})
         )
-        for gist in all_gists:
-            self._gists.add(gist)
-        # for year in by_year:
-        #     self._total_contributions += year.get("contributionCalendar", {}).get(
-        #         "totalContributions", 0
-        #     )
-        # return cast(int, self._total_contributions)
+        for gist in all_gists.get("edges",[]):
+            name = gist.get("node", {}).get("files", []).get("name", "Other")
+            resourcePath = gist.get("resourcePath")
+            description = gist.get("description")
+            color = gist.get("files", {}).get("language", {}).get("color")
+            self._gists.add({
+                    "name": name,
+                    "resourcePath": resourcePath,
+                    "description": description,
+                    "color": color
+            })
+
+        return self._gists
 
     @property
     async def languages_proportional(self) -> Dict:
