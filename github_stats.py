@@ -347,7 +347,9 @@ Languages:
                 .get("repositoriesContributedTo", {})
             )
             owned_repos = (
-                raw_results.get("data", {}).get("viewer", {}).get("repositories", {})
+                raw_results.get("data", {})
+                .get("viewer", {})
+                .get("repositories", {})
             )
 
             repos = owned_repos.get("nodes", [])
@@ -384,16 +386,18 @@ Languages:
                 .get("viewer", {})
                 .get("gists", {})
             )
-            ordered_gists = user_gists.get("nodes",[])
+            # ordered_gists = user_gists.get("nodes",[])
+            ordered_gists = user_gists.get("edges",[])
 
             for gist in ordered_gists:
                 if gist is None:
                     continue
-                name = gist.get("files", []).get("name", {})
+                name = gist.get("node", {}).get("id", "Other")
+                #name = gist.get("files", []).get("name", {})
                 # resourcePath = gist.get("resourcePath")
                 # description = gist.get("description")
                 # color = gist.get("files", {}).get("language", {}).get("color")
-                gists = await self.gists
+                #gists = await self.gists
 
                 gists[name] = {
                     "name": name,
