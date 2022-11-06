@@ -437,7 +437,7 @@ Languages:
                 #     "description": description,
                 #     "color": color
                 # }
-                self._gists += {
+                gists[name] = {
                     "name": name,
                     "resourcePath": resourcePath,
                     "description": description,
