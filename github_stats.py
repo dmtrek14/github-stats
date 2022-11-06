@@ -424,7 +424,7 @@ Languages:
                 # if gist is None:
                 #     continue
                 #name = gist.get("node", {}).get("id", "Other")
-                name = gist.get("node", {}).get("files", []).get("name", "Other")
+                name = gist.get("node", {}).get("files", []).get("name")
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 color = gist.get("files", {}).get("language", {}).get("color")
