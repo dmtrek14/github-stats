@@ -437,13 +437,13 @@ Languages:
                 #     "description": description,
                 #     "color": color
                 # }
-                self._gists.add({
+                self._gists =+ {
                     "name": name,
                     "resourcePath": resourcePath,
                     "description": description,
                     #"color": color
                 }
-                )
+                
             #     gists.add({
             #         "name": name,
             #         "resourcePath": resourcePath,
