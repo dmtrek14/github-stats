@@ -97,7 +97,7 @@ async def generate_gists(s: Stats) -> None:
     with open("templates/gists.svg", "r") as f:
         output = f.read()
 
-    gist_list = ""
+    gist_list = await s.gists
 
     for i, (gist, data) in enumerate(gists):
         print(data)
