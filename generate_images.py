@@ -109,10 +109,7 @@ async def generate_gists(s: Stats) -> None:
         # color = color if color is not None else "#000000"
         gist_list += f"""
             <span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="octicon" style="fill:black;"
-            viewBox="0 0 16 16" version="1.1" width="16" height="16"><path
-            fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
-            <span class="lang">GIST TEST</span>
+                {gist}
             </span>
         """
 

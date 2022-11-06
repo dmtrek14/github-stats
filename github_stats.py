@@ -397,10 +397,10 @@ Languages:
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 color = gist.get("files", {}).get("language", {}).get("color")
-                #gists = await self.gists
+                gists = await self.gists
 
                 gists[name] = {
-                    "name": name,
+                    #"name": name,
                     "resourcePath": resourcePath,
                     "description": description,
                     "color": color
