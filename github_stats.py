@@ -389,17 +389,17 @@ Languages:
             for gist in gists:
                 if gist is None:
                     continue
-                name = gist.get("files", []).get("name")
-                resourcePath = gist.get("resourcePath")
-                description = gist.get("description")
-                color = gist.get("files", {}).get("language", {}).get("color")
+                name = gist.get("files", []).get("name", {})
+                # resourcePath = gist.get("resourcePath")
+                # description = gist.get("description")
+                # color = gist.get("files", {}).get("language", {}).get("color")
                 gists = await self.gists
 
                 gists[name] = {
                     "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    "color": color
+                    # "resourcePath": resourcePath,
+                    # "description": description,
+                    # "color": color
                 }
 
                     
