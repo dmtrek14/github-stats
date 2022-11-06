@@ -227,6 +227,32 @@ query {
 """
 
     @staticmethod
+    def user_gists() -> str:
+        """
+        :return: GraphQL query to get all user gists
+        """
+        return """
+        query {
+        viewer {
+            gists(first: 20, privacy: PUBLIC, orderBy: {field: CREATED_AT, direction: DESC}) {
+        nodes {
+            resourcePath
+            description
+            createdAt
+            files(limit: 1) {
+                name
+                language {
+                    name
+                    color
+                }
+            }
+        }
+        }
+        }
+"""
+
+
+    @staticmethod
     def contribs_by_year(year: str) -> str:
         """
         :param year: year to query for
@@ -381,44 +407,44 @@ Languages:
                             "color": lang.get("node", {}).get("color"),
                         }
 
-            user_gists = (
-                raw_results.get("data", {})
-                .get("viewer", {})
-                .get("gists", {})
-            )
+            # user_gists = (
+            #     raw_results.get("data", {})
+            #     .get("viewer", {})
+            #     .get("gists", {})
+            # )
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
-            for gist in user_gists.get("edges",[]):
-                # if gist is None:
-                #     continue
-                #name = gist.get("node", {}).get("id", "Other")
-                name = gist.get("node", {}).get("files", []).get("name", "Other")
-                resourcePath = gist.get("resourcePath")
-                description = gist.get("description")
-                color = gist.get("files", {}).get("language", {}).get("color")
-                gists = await self.gists
+            # for gist in user_gists.get("edges",[]):
+            #     # if gist is None:
+            #     #     continue
+            #     #name = gist.get("node", {}).get("id", "Other")
+            #     name = gist.get("node", {}).get("files", []).get("name", "Other")
+            #     resourcePath = gist.get("resourcePath")
+            #     description = gist.get("description")
+            #     color = gist.get("files", {}).get("language", {}).get("color")
+            #     gists = await self.gists
                 
-                # self._gists += {
-                #     "name": name,
-                #     "resourcePath": resourcePath,
-                #     "description": description,
-                #     "color": color
-                # }
-                self._gists.add({
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    "color": color
-                }
-                )
-                gists.add({
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    "color": color
-                }
-                )
+            #     # self._gists += {
+            #     #     "name": name,
+            #     #     "resourcePath": resourcePath,
+            #     #     "description": description,
+            #     #     "color": color
+            #     # }
+            #     self._gists.add({
+            #         "name": name,
+            #         "resourcePath": resourcePath,
+            #         "description": description,
+            #         "color": color
+            #     }
+            #     )
+            #     gists.add({
+            #         "name": name,
+            #         "resourcePath": resourcePath,
+            #         "description": description,
+            #         "color": color
+            #     }
+            #     )
                     
 
             if owned_repos.get("pageInfo", {}).get(
@@ -489,10 +515,24 @@ Languages:
         :return: list of gists created by user
         """
         if self._gists is not None:
-            return self._gists
-        await self.get_stats()
-        assert self._gists is not None
-        return self._gists
+             return self._gists
+        self._gists = set()
+        # await self.get_stats()
+        # assert self._gists is not None
+        # return self._gists
+        all_gists = (
+            (await self.queries.query(Queries.user_gists()))
+            .get("data", {})
+            .get("viewer", {})
+            .get("gists", {})
+        )
+        for gist in all_gists:
+            self._gists.add(gist)
+        # for year in by_year:
+        #     self._total_contributions += year.get("contributionCalendar", {}).get(
+        #         "totalContributions", 0
+        #     )
+        # return cast(int, self._total_contributions)
 
     @property
     async def languages_proportional(self) -> Dict:
