@@ -387,32 +387,38 @@ Languages:
                 .get("gists", {})
             )
             # ordered_gists = user_gists.get("nodes",[])
-            ordered_gists = user_gists.get("edges",[])
+            #ordered_gists = user_gists.get("edges",[])
 
             for gist in user_gists.get("edges",[]):
-                if gist is None:
-                    self._gists += {
-                        "name": "empty",
-                        "resourcePath": "empty",
-                        "description": "empty",
-                        "color": "empty"
-                    }
-                    continue
+                # if gist is None:
+                #     continue
                 #name = gist.get("node", {}).get("id", "Other")
-                name = gist.get("node", {}).get("files", []).get("name")
+                name = gist.get("node", {}).get("files", []).get("name", "Other")
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 color = gist.get("files", {}).get("language", {}).get("color")
-                #gists = await self.gists
+                gists = await self.gists
                 
-                self._gists += {
+                # self._gists += {
+                #     "name": name,
+                #     "resourcePath": resourcePath,
+                #     "description": description,
+                #     "color": color
+                # }
+                self._gists.add({
                     "name": name,
                     "resourcePath": resourcePath,
                     "description": description,
                     "color": color
                 }
-                #self._gists.add()
-
+                )
+                gists.add({
+                    "name": name,
+                    "resourcePath": resourcePath,
+                    "description": description,
+                    "color": color
+                }
+                )
                     
 
             if owned_repos.get("pageInfo", {}).get(

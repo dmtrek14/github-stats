@@ -98,7 +98,7 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
 
     gist_list = ""
-    my_gists = (await s.gists).items()
+    my_gists = await s.gists
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)
