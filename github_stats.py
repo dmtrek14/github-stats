@@ -416,19 +416,20 @@ Languages:
                 raw_results.get("data", {})
                 .get("viewer", {})
                 .get("gists", {})
+                .get("edges", [])
             )
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
-            for gist in user_gists.get("edges",[]):
+            for gist in user_gists:
                 # if gist is None:
                 #     continue
-                #name = gist.get("node", {}).get("id", "Other")
-                name = gist.get("node", {}).get("files", []).get("name")
+                name = gist.get("node", {}).get("id", "Other")
+                #name = gist.get("node", {}).get("files", []).get("name")
                 resourcePath = gist.get("node", {}).get("resourcePath")
                 description = gist.get("node", {}).get("description")
                 color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
-                gists = await self.gists
+                #gists = await self.gists
                 
                 # self._gists += {
                 #     "name": name,
