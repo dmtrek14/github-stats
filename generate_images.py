@@ -99,7 +99,7 @@ async def generate_gists(s: Stats) -> None:
 
     gist_list = ""
     my_gists = await s.gists
-    gist_len = len(await s.gists)
+    gist_len = len(my_gists.item())
     gist_list += f"""
             <span>
                 {gist_len}
