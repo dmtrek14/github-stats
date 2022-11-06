@@ -389,8 +389,14 @@ Languages:
             # ordered_gists = user_gists.get("nodes",[])
             ordered_gists = user_gists.get("edges",[])
 
-            for gist in ordered_gists:
+            for gist in user_gists.get("edges",[]):
                 if gist is None:
+                    self._gists += {
+                        "name": "empty",
+                        "resourcePath": "empty",
+                        "description": "empty",
+                        "color": "empty"
+                    }
                     continue
                 #name = gist.get("node", {}).get("id", "Other")
                 name = gist.get("node", {}).get("files", []).get("name")
