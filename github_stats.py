@@ -287,7 +287,7 @@ class Stats(object):
         self._repos: Optional[Set[str]] = None
         self._lines_changed: Optional[Tuple[int, int]] = None
         self._views: Optional[int] = None
-        self._gists: Optional[Dict[str, Any]] = None
+        self._gists: Optional[Set[str]] = None
 
     async def to_str(self) -> str:
         """
@@ -318,7 +318,7 @@ Languages:
         self._stargazers = 0
         self._forks = 0
         self._languages = dict()
-        self._gists = dict()
+        self._gists = set()
         self._repos = set()
 
         exclude_langs_lower = {x.lower() for x in self._exclude_langs}
@@ -393,7 +393,7 @@ Languages:
                 # resourcePath = gist.get("resourcePath")
                 # description = gist.get("description")
                 # color = gist.get("files", {}).get("language", {}).get("color")
-                gists = await self.gists
+                #gists = await self.gists
 
                 gists[name] = {
                     "name": name,
@@ -467,7 +467,7 @@ Languages:
         return self._languages
     
     @property
-    async def gists(self) -> Dict:
+    async def gists(self) -> Set[str]:
         """
         :return: list of gists created by user
         """
