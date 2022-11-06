@@ -471,7 +471,7 @@ Languages:
         """
         :return: list of gists created by user
         """
-        if self.gists is not None:
+        if self._gists is not None:
             return self._gists
         await self.get_stats()
         assert self._gists is not None
