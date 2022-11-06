@@ -89,7 +89,36 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
     with open("generated/languages.svg", "w") as f:
         f.write(output)
 
+async def generate_gists(s: Stats) -> None:
+    """
+    Generate an SVG badge with list of gists
+    :param s: Represents user's GitHub gists
+    """
+    with open("templates/gists.svg", "r") as f:
+        output = f.read()
 
+    gist_list = ""
+
+    for i, (gist, data) in enumerate(gists):
+        resourcePath = data.get("resourcePath")
+        name = data.get("name")
+        color = data.get("color")
+        color = color if color is not None else "#000000"
+        gist_list += f"""
+            <li>
+            <svg xmlns="http://www.w3.org/2000/svg" class="octicon" style="fill:{color};"
+            viewBox="0 0 16 16" version="1.1" width="16" height="16"><path
+            fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+            <span class="lang">{name}</span>
+            </li>
+        """
+
+    output = re.sub("{{ name }}", await s.name, output)
+    output = re.sub(r"{{ gist_list }}", gist_list, output)
+
+    generate_output_folder()
+    with open("generated/gists.svg", "w") as f:
+        f.write(output)
 ################################################################################
 # Main Function
 ################################################################################

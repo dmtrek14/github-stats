@@ -193,6 +193,20 @@ class Queries(object):
         }}
       }}
     }}
+    gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}){{
+        nodes {{
+            resourcePath
+            description
+            createdAt
+            files {{
+                name
+                language {{
+                    name
+                    color
+                }}
+            }}
+        }}
+    }}
   }}
 }}
 """
@@ -273,12 +287,14 @@ class Stats(object):
         self._repos: Optional[Set[str]] = None
         self._lines_changed: Optional[Tuple[int, int]] = None
         self._views: Optional[int] = None
+        self._gists: Optional[Dict[str, Any]] = None
 
     async def to_str(self) -> str:
         """
         :return: summary of all available statistics
         """
         languages = await self.languages_proportional
+        #gists = await.self.
         formatted_languages = "\n  - ".join(
             [f"{k}: {v:0.4f}%" for k, v in languages.items()]
         )
@@ -302,6 +318,7 @@ Languages:
         self._stargazers = 0
         self._forks = 0
         self._languages = dict()
+        self._gists = dict()
         self._repos = set()
 
         exclude_langs_lower = {x.lower() for x in self._exclude_langs}
@@ -361,6 +378,22 @@ Languages:
                             "occurrences": 1,
                             "color": lang.get("node", {}).get("color"),
                         }
+
+                for gist in repo.get("gists", {}).get("nodes", []):
+                    name = gist.get("files", {}).get("name")
+                    #gists = await self.gists
+                    resourcePath = gist.get("resourcePath")
+                    description = gist.get("description")
+                    color = gist.get("files", {}).get("language", {}).get("color")
+                    gists = await self.gists
+
+                    gists[name] = {
+                        "name": name,
+                        "resourcePath": resourcePath,
+                        "description": description,
+                        "color": color
+                    }
+                    
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False
@@ -423,6 +456,17 @@ Languages:
         await self.get_stats()
         assert self._languages is not None
         return self._languages
+    
+    @property
+    async def gists(self) -> Dict:
+        """
+        :return: list of gists created by user
+        """
+        if self.gists is not None:
+            return self._gists
+        await self.get_stats()
+        assert self._gists is not None
+        return self._gists
 
     @property
     async def languages_proportional(self) -> Dict:
