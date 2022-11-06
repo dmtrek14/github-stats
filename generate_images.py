@@ -105,11 +105,11 @@ async def generate_gists(s: Stats) -> None:
         resourcePath = data.get("resourcePath")
         name = data.get("name")
         description = data.get("description")
-        # color = data.get("color")
+        color = data.get("color")
         # color = color if color is not None else "#000000"
         gist_list += f"""
             <span>
-                {gist}
+                {resourcePath}
             </span>
         """
 
