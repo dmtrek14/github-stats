@@ -380,39 +380,28 @@ Languages:
                         }
 
             user_gists = (
-                raw_results.get("data", {}).get("viewer", {}).get("gists", {})
+                raw_results.get("data", {})
+                .get("viewer", {})
+                .get("gists", {})
             )
             gists = user_gists.get("nodes",[])
 
             for gist in gists:
                 if gist is None:
                     continue
-                name = gist.get("files", {}).get("name")
+                name = gist.get("files", []).get("name")
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 color = gist.get("files", {}).get("language", {}).get("color")
                 gists = await self.gists
 
-                gists = {
+                gists[name] = {
                     "name": name,
                     "resourcePath": resourcePath,
                     "description": description,
                     "color": color
                 }
-            # for gist in repo.get("gists", {}).get("nodes", []):
-            #         name = gist.get("files", {}).get("name")
-            #         #gists = await self.gists
-            #         resourcePath = gist.get("resourcePath")
-            #         description = gist.get("description")
-            #         color = gist.get("files", {}).get("language", {}).get("color")
-            #         gists = await self.gists
 
-            #         gists[name] = {
-            #             "name": name,
-            #             "resourcePath": resourcePath,
-            #             "description": description,
-            #             "color": color
-            #         }
                     
 
             if owned_repos.get("pageInfo", {}).get(

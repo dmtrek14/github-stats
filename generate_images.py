@@ -100,13 +100,14 @@ async def generate_gists(s: Stats) -> None:
     gist_list = ""
 
     for i, (gist, data) in enumerate(gists):
-        resourcePath = data.get("resourcePath")
+        print(data)
+        # resourcePath = data.get("resourcePath")
         name = data.get("name")
-        color = data.get("color")
-        color = color if color is not None else "#000000"
+        # color = data.get("color")
+        # color = color if color is not None else "#000000"
         gist_list += f"""
             <li>
-            <svg xmlns="http://www.w3.org/2000/svg" class="octicon" style="fill:{color};"
+            <svg xmlns="http://www.w3.org/2000/svg" class="octicon" style="fill:white;"
             viewBox="0 0 16 16" version="1.1" width="16" height="16"><path
             fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
             <span class="lang">{name}</span>
