@@ -428,7 +428,7 @@ Languages:
                 #name = gist.get("node", {}).get("files", []).get("name")
                 resourcePath = gist.get("node", {}).get("resourcePath")
                 description = gist.get("node", {}).get("description")
-                color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
+                #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
                 #gists = await self.gists
                 
                 # self._gists += {
@@ -441,7 +441,7 @@ Languages:
                     "name": name,
                     "resourcePath": resourcePath,
                     "description": description,
-                    "color": color
+                    #"color": color
                 }
                 )
             #     gists.add({
