@@ -458,8 +458,8 @@ class Stats(object):
             for gist in user_gists:
                 if gist is None:
                      continue
-                #name = gist.get("resourcePath")
-                name = gist.get("files", []).get("name")
+                name = gist.get("resourcePath")
+                #name = gist.get("files", []).get("name")
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 #color = gist.get("files", []).get("language", {}).get("color")
