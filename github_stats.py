@@ -432,7 +432,7 @@ class Stats(object):
                 for lang in repo.get("languages", {}).get("edges", []):
                     name = lang.get("node", {}).get("name", "Other")
                     languages = await self.languages
-                    print(len(languages))
+                    # print(len(languages))
                     if name.lower() in exclude_langs_lower:
                         continue
                     if name in languages:
@@ -465,11 +465,20 @@ class Stats(object):
                 description = gist.get("description")
                 #color = gist.get("files", []).get("language", {}).get("color")
                 gists = await self.gists
+                if name in gists:
+                    print("name in gists")
+                        #languages[name]["size"] += lang.get("size", 0)
+                        #languages[name]["occurrences"] += 1
+                else:
+                    gists[name] = {
+                            "resourcePath": resourcePath,
+                            "description": description,
+                        }
                 
-                keys = ["name", "resourcePath", "description"]
-                values = [name, resourcePath, description]
-                for i in range(len(keys)):
-                    gists[keys[i]] = values[i]
+                # keys = ["name", "resourcePath", "description"]
+                # values = [name, resourcePath, description]
+                # for i in range(len(keys)):
+                #     gists[keys[i]] = values[i]
                 
                 #print(gists)
 
@@ -493,7 +502,7 @@ class Stats(object):
                 # }
                 
                 #print("Gists at line 482: " + str(len(gists)))
-            self._gists = gists   
+            #self._gists = gists   
             print("Gists at line 497: " + str(len(gists)))
 
             if owned_repos.get("pageInfo", {}).get(
