@@ -101,7 +101,7 @@ async def generate_gists(s: Stats) -> None:
     gist_list = ""
     gists = await s.gists
     print("Gist count in generate_gists method: " + str(len(gists)))
-
+    print(gists)
 #     for i, (gist, data) in enumerate(gists):
 #         resourcePath = data.get("resourcePath")
 #         #gist_name = gist.get("files", []).get("name")

@@ -447,11 +447,10 @@ class Stats(object):
                 raw_results.get("data", {})
                 .get("viewer", {})
                 .get("gists", {})
-                #.get("edges", [])
                 .get("nodes", [])
             )
-            #gists = await self.gists
-            gists = dict()
+            gists = await self.gists
+            #gists = dict()
             test = raw_results["data"]["viewer"]["gists"]["nodes"]
             print(test)
             #print("Gists at line 449: " + str(len(user_gists)))
@@ -463,29 +462,21 @@ class Stats(object):
                 #name = gist.get("files", []).get("name", 0)
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
+                name = gist["files"[0]]["name"]
+                print(name)
                 #color = gist.get("files", []).get("language", {}).get("color")
-                #gists = await self.gists
-                # if name in gists:
-                #     print("name in gists")
-                #         #languages[name]["size"] += lang.get("size", 0)
-                #         #languages[name]["occurrences"] += 1
-                #     gists[name] = {
-                #             "resourcePath": resourcePath,
-                #             "description": description,
-                #     }
-                # else:
-                # gists[resourcePath] = {
-                #             #"resourcePath": resourcePath,
-                #             #"name": name,
-                #             "description": description,
-                #         }
+                if resourcePath in gists:
+                        gists[resourcePath]["description"] = description
+                else:
+                        gists[resourcePath] = {
+                            "description": description,
+                        }                
+                # keys = ["resourcePath", "description"]
+                # values = [resourcePath, description]
+                # for i in range(len(keys)):
+                #     gists[keys[i]] = values[i]
                 
-                keys = ["resourcePath", "description"]
-                values = [resourcePath, description]
-                for i in range(len(keys)):
-                    gists[keys[i]] = values[i]
-                
-            self._gists = gists   
+            #self._gists = gists   
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False
