@@ -452,6 +452,8 @@ class Stats(object):
             )
             #gists = await self.gists
             gists = dict()
+            test = raw_results["data"]["viewer"]["gists"]["nodes"]
+            print(test)
             #print("Gists at line 449: " + str(len(user_gists)))
             
             for gist in user_gists:
@@ -483,30 +485,7 @@ class Stats(object):
                 for i in range(len(keys)):
                     gists[keys[i]] = values[i]
                 
-                #print(gists)
-
-                # if name in gists:
-                #     gists[name].append(name)
-                # else:
-                #     gists[name] = name
-                # new_gist = {
-                #     "name": name,
-                #     "resourcePath": resourcePath,
-                #     "description": description,
-                #     #"color": color
-                # }
-                # gists.append(new_gist.copy())
-                
-                # gists[name] = {
-                #     "name": name,
-                #     "resourcePath": resourcePath,
-                #     "description": description,
-                #     #"color": color
-                # }
-                
-                #print("Gists at line 482: " + str(len(gists)))
             self._gists = gists   
-            #print("Gists at line 497: " + str(len(gists)))
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False
