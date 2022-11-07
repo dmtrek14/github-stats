@@ -559,10 +559,14 @@ Languages:
             (await self.queries.query(Queries.user_gists()))
             .get("data", {})
             .get("viewer", {})
-            .get("gists", {})
-            .get("nodes", [])
+            # .get("gists", {})
+            # .get("nodes", [])
         )
-        for gist in all_gists:
+        print("Gists: " + str(all_gists))
+
+        user_gists = all_gists.get("gists", {}).get("nodes", [])
+
+        for gist in user_gists:
             name = gist.get("files", []).get("name", "Other")
             resourcePath = gist.get("resourcePath")
             description = gist.get("description")
