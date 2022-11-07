@@ -102,10 +102,10 @@ async def generate_gists(s: Stats) -> None:
     gist_list = ""
     my_gists = await s.gists
     #print("Gist count in generate_gists method: " + str(len(my_gists)))
-    #print(my_gists)
-    if my_gists is not None:
-        for (gist, data) in enumerate(my_gists):
-            print(data)
+    print(my_gists)
+    #if my_gists is not None:
+    for (gist, data) in enumerate(my_gists):
+            print(gist)
             # resourcePath = data.get("resourcePath")
             # name = data.get("name")
             # description = data.get("description")
@@ -113,10 +113,10 @@ async def generate_gists(s: Stats) -> None:
             <span>{gist}</span><br/>
 
             """
-    else:
-        gist_list += f"""
-        <span>None</span>
-        """
+    # else:
+    #     gist_list += f"""
+    #     <span>None</span>
+    #     """
 
     output = re.sub(r"{{ name }}", await s.name, output)
     output = re.sub(r"{{ username }}", s.username, output)
@@ -165,7 +165,7 @@ async def main() -> None:
             exclude_langs=excluded_langs,
             ignore_forked_repos=ignore_forked_repos,
         )
-        await asyncio.gather(generate_gists(s), generate_languages(s), generate_overview(s))
+        await asyncio.gather(generate_gists(s), generate_overview(s))
 
 
 if __name__ == "__main__":

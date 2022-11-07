@@ -460,15 +460,15 @@ class Stats(object):
                 description = gist.get("description")
                 name = gist["files"][0]["name"]
                 color = gist["files"][0]["language"]["color"]
-                if gist_id in gists:
-                    continue
-                else:
-                        gists[gist_id] = {
+                # if gist_id in gists:
+                #     continue
+                # else:
+                gists[gist_id] = {
                             "resourcePath": resourcePath,
                             "description": description,
                             "name": name,
                             "color": color
-                        }                 
+                }                 
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False
