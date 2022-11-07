@@ -451,23 +451,17 @@ class Stats(object):
                 .get("nodes", [])
             )
             gists = await self.gists
-            #gists = dict()
-            test = raw_results["data"]["viewer"]["gists"]["nodes"]
-            print(test)
-            #print("Gists at line 449: " + str(len(user_gists)))
-            
+           
             for gist in user_gists:
                 if gist is None:
                      continue
-                #name = gist.get("resourcePath")
-                #name = gist.get("files", []).get("name", 0)
                 gist_id = gist.get("id")
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 name = gist["files"][0]["name"]
-                lang = gist["files"][0]["language"]
+                lang = gist["files"][0]["language"]["color"]
                 print(lang)
-                #color = gist.get("files", []).get("language", {}).get("color")
+                #color = gist["files"][0]["language"]["color"]
                 if gist_id in gists:
                     continue
                         #gists[resourcePath]["description"] = description
@@ -476,13 +470,7 @@ class Stats(object):
                             "resourcePath": resourcePath,
                             "description": description,
                             "name": name
-                        }                
-                # keys = ["resourcePath", "description"]
-                # values = [resourcePath, description]
-                # for i in range(len(keys)):
-                #     gists[keys[i]] = values[i]
-                
-            #self._gists = gists   
+                        }                 
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False
