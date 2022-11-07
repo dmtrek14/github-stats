@@ -451,6 +451,7 @@ class Stats(object):
                 .get("nodes", [])
             )
             #gists = await self.gists
+            gists = dict()
             #print("Gists at line 449: " + str(len(user_gists)))
             
             for gist in user_gists:
@@ -461,7 +462,7 @@ class Stats(object):
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 #color = gist.get("files", []).get("language", {}).get("color")
-                gists = await self.gists
+                #gists = await self.gists
                 # if name in gists:
                 #     print("name in gists")
                 #         #languages[name]["size"] += lang.get("size", 0)
@@ -471,16 +472,16 @@ class Stats(object):
                 #             "description": description,
                 #     }
                 # else:
-                gists[resourcePath] = {
-                            #"resourcePath": resourcePath,
-                            #"name": name,
-                            "description": description,
-                        }
+                # gists[resourcePath] = {
+                #             #"resourcePath": resourcePath,
+                #             #"name": name,
+                #             "description": description,
+                #         }
                 
-                # keys = ["resourcePath", "description"]
-                # values = [resourcePath, description]
-                # for i in range(len(keys)):
-                #     gists[keys[i]] = values[i]
+                keys = ["resourcePath", "description"]
+                values = [resourcePath, description]
+                for i in range(len(keys)):
+                    gists[keys[i]] = values[i]
                 
                 #print(gists)
 
