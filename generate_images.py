@@ -105,6 +105,7 @@ async def generate_gists(s: Stats) -> None:
     my_gists = await s.gists
     more_gists = (await s.gists).items()
     test_gists = s._gists
+    langs = await s.languages
     # gist_len = len(my_gists)
     # gist_list += f"""
     #         <span>
@@ -114,6 +115,7 @@ async def generate_gists(s: Stats) -> None:
     print("Gist count in generate_images line 108: " + str(len(my_gists)))
     print("Gist count in generate_images line 113: " + str(len(more_gists)))
     print("Gist count in generate_images line 114: " + str(len(test_gists)))
+    print("Lang count in gist method: " + str(len(langs)))
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)

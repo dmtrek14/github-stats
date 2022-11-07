@@ -441,6 +441,8 @@ class Stats(object):
                             "occurrences": 1,
                             "color": lang.get("node", {}).get("color"),
                         }
+
+                        
             user_gists = (
                 raw_results.get("data", {})
                 .get("viewer", {})
