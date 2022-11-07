@@ -122,7 +122,7 @@ async def generate_gists(s: Stats) -> None:
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)
-        #print("Gist number in generate_images line 112: " + str(i))
+        print("Gist number in generate_images line 112: " + str(i))
         resourcePath = data.get("resourcePath")
         #name = data.get("name")
         name = gist.get("files", []).get("name")
@@ -130,12 +130,12 @@ async def generate_gists(s: Stats) -> None:
         #color = data.get("color")
         # color = color if color is not None else "#000000"
         gist_list += f"""
-            <span>
-                {resourcePath}
-            </span>
-        """
+<span>
+        {resourcePath}
+ </span><br/>
+"""
 
-    output = re.sub("{{ name }}", await s.name, output)
+    output = re.sub(r"{{ name }}", await s.name, output)
     output = re.sub(r"{{ gist_list }}", gist_list, output)
 
     generate_output_folder()
