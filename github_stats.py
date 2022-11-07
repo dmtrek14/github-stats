@@ -194,12 +194,24 @@ class Queries(object):
       }}
     }}
     gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
+        nodes {{
+            resourcePath
+            description
+            createdAt
+            files {{
+                name 
+                language {{
+                    name
+                    color
+                }}
+            }}
+        }}
         edges {{
             node {{
                 resourcePath
                 description
                 createdAt
-                files(limit: 1) {{
+                files {{
                     name
                     language {{
                         name
@@ -237,12 +249,24 @@ query {
         query {
             viewer {
                 gists(first: 20, privacy: PUBLIC, orderBy: {field: CREATED_AT, direction: DESC}) {
+                    nodes {
+                        resourcePath
+                        description
+                        createdAt
+                        files {
+                            name
+                            language {
+                                name
+                                color
+                            }
+                        }
+                    }
                     edges {
                         node {
                             resourcePath
                             description
                             createdAt
-                            files(limit: 1) {
+                            files {
                                 name
                                 language {
                                     name
@@ -416,7 +440,8 @@ Languages:
                 raw_results.get("data", {})
                 .get("viewer", {})
                 .get("gists", {})
-                .get("edges", [])
+                #.get("edges", [])
+                .get("nodes", [])
             )
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
@@ -424,11 +449,15 @@ Languages:
             for gist in user_gists:
                 # if gist is None:
                 #     continue
-                name = gist.get("node", {}).get("id", "Other")
+                name = gits.get("resourcePath")
+                #name = gist.get("node", {}).get("id", "Other")
                 #name = gist.get("node", {}).get("files", []).get("name")
-                resourcePath = gist.get("node", {}).get("resourcePath")
-                description = gist.get("node", {}).get("description")
+                #resourcePath = gist.get("node", {}).get("resourcePath")
+                resourcePath = gist.get("resourcePath")
+               # description = gist.get("node", {}).get("description")
+                description = gist.get("description")
                 #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
+                #color = gist.get("files", []).get("language", {}).get("color")
                 gists = await self.gists
                 
                 # self._gists += {
