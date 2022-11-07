@@ -129,6 +129,7 @@ class Queries(object):
     name
     gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
         nodes {{
+            id
             resourcePath
             description
             createdAt
@@ -142,6 +143,7 @@ class Queries(object):
         }}
         edges {{
             node {{
+                id
                 resourcePath
                 description
                 createdAt
@@ -265,6 +267,7 @@ query {
                     }}
                     edges {{
                         node {{
+                            id
                             resourcePath
                             description
                             createdAt
