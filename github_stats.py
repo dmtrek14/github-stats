@@ -447,6 +447,7 @@ Languages:
                 .get("nodes", [])
             )
             print("Gists at line 449: " + str(len(user_gists)))
+            
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
@@ -462,7 +463,7 @@ Languages:
                 description = gist.get("description")
                 #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
                 #color = gist.get("files", []).get("language", {}).get("color")
-                #gists = await self.gists
+                gists = await self.gists
                 
                 new_gist = {
                     "name": name,
