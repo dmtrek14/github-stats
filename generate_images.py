@@ -99,7 +99,6 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
     
     gist_list = ""
-    #my_gists = await s.gists
     gists = await s.gists
     for i, (gist, data) in enumerate(gists):
         resourcePath = data.get("resourcePath")
@@ -109,10 +108,7 @@ async def generate_gists(s: Stats) -> None:
 <span>{resourcePath}</span><br/>
 
 """
-    # languages = await s.languages
-    # print("Name in my_test method: " + name)
-    # print("Gist count in my_test method: " + str(len(gists)))
-    # print("Lang count in my_test method: " + str(len(languages)))
+    print("Gist count in generate_gists method: " + str(len(gists)))
 
     output = re.sub(r"{{ name }}", await s.name, output)
     output = re.sub(r"{{ gist_list }}", gist_list, output)
