@@ -64,7 +64,7 @@ async def generate_languages(s: Stats) -> None:
     )
     test_gists = await s.gists
     print("Gist count in generate_languages method: " + str(len(test_gists)))
-    print("Lang count in gist method: " + str(len(sorted_languages)))
+    print("Lang count in lang method: " + str(len(sorted_languages)))
     delay_between = 150
     for i, (lang, data) in enumerate(sorted_languages):
         color = data.get("color")
@@ -98,7 +98,7 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
 async def generate_gists(s: Stats) -> None:
     """
     Generate an SVG badge with list of gists
-    :param s: Represents user's GitHub gists
+    :param s: Represents user's GitHub statistics
     """
     with open("templates/gists.svg", "r") as f:
         output = f.read()
@@ -106,23 +106,23 @@ async def generate_gists(s: Stats) -> None:
     gist_list = ""
 
     my_gists = await s.gists
-    more_gists = (await s.gists).items()
-    test_gists = s._gists
-    langs = await s.languages
+    # more_gists = (await s.gists).items()
+    # test_gists = s._gists
+    # langs = await s.languages
     # gist_len = len(my_gists)
     # gist_list += f"""
     #         <span>
     #             {gist_len}
     #         </span>
     #     """
-    print("Gist count in generate_images line 108: " + str(len(my_gists)))
-    print("Gist count in generate_images line 113: " + str(len(more_gists)))
-    print("Gist count in generate_images line 114: " + str(len(test_gists)))
-    print("Lang count in gist method: " + str(len(langs)))
+    print("Gist count in generate_gists line 108: " + str(len(my_gists)))
+    # print("Gist count in generate_images line 113: " + str(len(more_gists)))
+    # print("Gist count in generate_images line 114: " + str(len(test_gists)))
+    # print("Lang count in gist method: " + str(len(langs)))
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)
-        print("Gist number in generate_images line 112: " + str(i))
+        #print("Gist number in generate_images line 112: " + str(i))
         resourcePath = data.get("resourcePath")
         #name = data.get("name")
         name = gist.get("files", []).get("name")
@@ -141,6 +141,9 @@ async def generate_gists(s: Stats) -> None:
     generate_output_folder()
     with open("generated/gists.svg", "w") as f:
         f.write(output)
+
+
+
 ################################################################################
 # Main Function
 ################################################################################
