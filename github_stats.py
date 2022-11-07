@@ -469,6 +469,8 @@ Languages:
                 values = [name, resourcePath, description]
                 for i in range(len(keys)):
                     gists[keys[i]] = values[i]
+                #self._gists = gists
+                self.gists = gists
                 print(gists)
 
                 # if name in gists:
@@ -490,7 +492,7 @@ Languages:
                 #     #"color": color
                 # }
                 
-                print("Gists at line 482: " + str(len(gists)))
+                #print("Gists at line 482: " + str(len(gists)))
                 
                     
 
