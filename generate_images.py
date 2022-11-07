@@ -98,11 +98,10 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
 
     gist_list = ""
-    #my_test_gists = await s.queries.user_gists()
-    #my_gists = my_test_gists.get("data", {}).get("viewer", {}).get("gists", {}).get("nodes", [])
+
     my_gists = await s.gists
-    more_gists = s._gists
-    #await s.queries.user_gists()
+    more_gists = (await s.gists).items()
+
     # gist_len = len(my_gists)
     # gist_list += f"""
     #         <span>
