@@ -442,7 +442,7 @@ class Stats(object):
                             "color": lang.get("node", {}).get("color"),
                         }
 
-                        
+
             user_gists = (
                 raw_results.get("data", {})
                 .get("viewer", {})
@@ -476,10 +476,10 @@ class Stats(object):
                             "description": description,
                         }
                 
-                keys = ["name", "resourcePath", "description"]
-                values = [name, resourcePath, description]
-                for i in range(len(keys)):
-                    gists[keys[i]] = values[i]
+                # keys = ["resourcePath", "description"]
+                # values = [resourcePath, description]
+                # for i in range(len(keys)):
+                #     gists[keys[i]] = values[i]
                 
                 #print(gists)
 
@@ -504,7 +504,7 @@ class Stats(object):
                 
                 #print("Gists at line 482: " + str(len(gists)))
             self._gists = gists   
-            print("Gists at line 497: " + str(len(gists)))
+            #print("Gists at line 497: " + str(len(gists)))
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False

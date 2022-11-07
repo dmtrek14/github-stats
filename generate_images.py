@@ -62,9 +62,6 @@ async def generate_languages(s: Stats) -> None:
     sorted_languages = sorted(
         (await s.languages).items(), reverse=True, key=lambda t: t[1].get("size")
     )
-    test_gists = await s.gists
-    print("Gist count in generate_languages method: " + str(len(test_gists)))
-    print("Lang count in lang method: " + str(len(sorted_languages)))
     delay_between = 150
     for i, (lang, data) in enumerate(sorted_languages):
         color = data.get("color")
@@ -93,18 +90,38 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
         f.write(output)
 
 
-async def my_test(s: Stats) -> None:
+async def generate_gists(s: Stats) -> None:
     """
-    Generate an SVG badge with summary statistics
+    Generate an SVG badge with list of gists
     :param s: Represents user's GitHub statistics
     """
+    with open("templates/gists.svg", "r") as f:
+        output = f.read()
+    
+    gist_list = ""
+    my_gists = await s.gists
 
-    name = await s.name
     gists = await s.gists
-    languages = await s.languages
-    print("Name in my_test method: " + name)
-    print("Gist count in my_test method: " + str(len(gists)))
-    print("Lang count in my_test method: " + str(len(languages)))
+    for i, (gist, data) in enumerate(gists):
+        resourcePath = data.get("resourcePath")
+        #gist_name = gist.get("files", []).get("name")
+        description = data.get("description")
+        gist_list += f"""
+<span>
+        {resourcePath}
+ </span><br/>
+"""
+    # languages = await s.languages
+    # print("Name in my_test method: " + name)
+    # print("Gist count in my_test method: " + str(len(gists)))
+    # print("Lang count in my_test method: " + str(len(languages)))
+
+    output = re.sub(r"{{ name }}", await s.name, output)
+    output = re.sub(r"{{ gist_list }}", gist_list, output)
+
+    generate_output_folder()
+    with open("generated/gists.svg", "w") as f:
+        f.write(output)
 
 ################################################################################
 # Main Function
@@ -145,7 +162,7 @@ async def main() -> None:
             exclude_langs=excluded_langs,
             ignore_forked_repos=ignore_forked_repos,
         )
-        await asyncio.gather(generate_languages(s), generate_overview(s), my_test(s))
+        await asyncio.gather(generate_gists(s), generate_languages(s), generate_overview(s))
 
 
 if __name__ == "__main__":
