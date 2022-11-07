@@ -446,6 +446,7 @@ Languages:
                 #.get("edges", [])
                 .get("nodes", [])
             )
+            gists = dict()
             print("Gists at line 449: " + str(len(user_gists)))
             
             # ordered_gists = user_gists.get("nodes",[])
@@ -456,7 +457,7 @@ Languages:
                      continue
                 name = gist.get("resourcePath")
                 #name = gist.get("node", {}).get("id", "Other")
-                #name = gist.get("node", {}).get("files", []).get("name")
+                #name = gist.get("files", []).get("name")
                 #resourcePath = gist.get("node", {}).get("resourcePath")
                 resourcePath = gist.get("resourcePath")
                # description = gist.get("node", {}).get("description")
@@ -469,8 +470,7 @@ Languages:
                 values = [name, resourcePath, description]
                 for i in range(len(keys)):
                     gists[keys[i]] = values[i]
-                #self._gists = gists
-                self.gists = gists
+                
                 print(gists)
 
                 # if name in gists:
@@ -493,7 +493,7 @@ Languages:
                 # }
                 
                 #print("Gists at line 482: " + str(len(gists)))
-                
+            self._gists = gists   
                     
 
             if owned_repos.get("pageInfo", {}).get(
