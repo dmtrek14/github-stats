@@ -106,6 +106,9 @@ async def generate_gists(s: Stats) -> None:
     gist_list = ""
 
     my_gists = await s.gists
+    sorted_gists = sorted(
+        (await s.gists).items(), reverse=True, key=lambda t: t[1].get("resourcePath")
+    )
     # more_gists = (await s.gists).items()
     # test_gists = s._gists
     # langs = await s.languages
@@ -116,11 +119,11 @@ async def generate_gists(s: Stats) -> None:
     #         </span>
     #     """
     print("Gist count in generate_gists line 108: " + str(len(my_gists)))
-    # print("Gist count in generate_images line 113: " + str(len(more_gists)))
+    print("Gist count in generate_images line 113: " + str(len(sorted_gists)))
     # print("Gist count in generate_images line 114: " + str(len(test_gists)))
     # print("Lang count in gist method: " + str(len(langs)))
 
-    for i, (gist, data) in enumerate(my_gists):
+    for i, (gist, data) in enumerate(sorted_gists):
         # print(data)
         print("Gist number in generate_images line 112: " + str(i))
         resourcePath = data.get("resourcePath")
