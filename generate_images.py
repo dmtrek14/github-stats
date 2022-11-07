@@ -105,13 +105,12 @@ async def generate_gists(s: Stats) -> None:
     #print(my_gists)
     #if my_gists is not None:
     for i, (gist, data) in enumerate(my_gists):
-            print(gist)
-            print(data)
+            print(i, gist, data)
             # resourcePath = data.get("resourcePath")
             # name = data.get("name")
             # description = data.get("description")
             gist_list += f"""
-            <span>{gist}</span><br/>
+            <span>{gist}</span>
 
             """
     # else:
