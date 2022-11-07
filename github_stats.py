@@ -125,8 +125,36 @@ class Queries(object):
         """
         return f"""{{
   viewer {{
-    login,
-    name,
+    login
+    name
+    gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
+        nodes {{
+            resourcePath
+            description
+            createdAt
+            files {{
+                name 
+                language {{
+                    name
+                    color
+                }}
+            }}
+        }}
+        edges {{
+            node {{
+                resourcePath
+                description
+                createdAt
+                files {{
+                    name
+                    language {{
+                        name
+                        color
+                    }}
+                }}
+            }}
+        }}
+    }}
     repositories(
         first: 100,
         orderBy: {{
@@ -193,34 +221,7 @@ class Queries(object):
         }}
       }}
     }}
-    gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
-        nodes {{
-            resourcePath
-            description
-            createdAt
-            files {{
-                name 
-                language {{
-                    name
-                    color
-                }}
-            }}
-        }}
-        edges {{
-            node {{
-                resourcePath
-                description
-                createdAt
-                files {{
-                    name
-                    language {{
-                        name
-                        color
-                    }}
-                }}
-            }}
-        }}
-    }}
+
   }}
 }}
 """
@@ -396,6 +397,8 @@ Languages:
                     .get("login", "No Name")
                 )
 
+            #self._gists = raw_results.get("data", {}).get("viewer", {}).get("gists", {}).get("nodes", [])
+
             contrib_repos = (
                 raw_results.get("data", {})
                 .get("viewer", {})
@@ -443,12 +446,13 @@ Languages:
                 #.get("edges", [])
                 .get("nodes", [])
             )
+            print("Gists at line 449: " + str(len(user_gists)))
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
             for gist in user_gists:
-                # if gist is None:
-                #     continue
+                if gist is None:
+                     continue
                 name = gist.get("resourcePath")
                 #name = gist.get("node", {}).get("id", "Other")
                 #name = gist.get("node", {}).get("files", []).get("name")
@@ -551,40 +555,40 @@ Languages:
         """
         if self._gists is not None:
              return self._gists
-        self._gists = dict()
-        # await self.get_stats()
-        # assert self._gists is not None
-        # return self._gists
-        all_gists = (
-            (await self.queries.query(Queries.user_gists()))
-            .get("data", {})
-            .get("viewer", {})
-            # .get("gists", {})
-            # .get("nodes", [])
-        )
-        print("Gists: " + str(all_gists))
-
-        user_gists = all_gists.get("gists", {}).get("nodes", [])
-
-        for gist in user_gists:
-            name = gist.get("files", []).get("name", "Other")
-            resourcePath = gist.get("resourcePath")
-            description = gist.get("description")
-            #color = gist.get("files", {}).get("language", {}).get("color")
-            # self._gists.add({
-            #         "name": name,
-            #         "resourcePath": resourcePath,
-            #         "description": description,
-            #         "color": color
-            # })
-            self._gists[name] = {
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    #"color": color
-            }
-
+        #self._gists = dict()
+        await self.get_stats()
+        assert self._gists is not None
         return self._gists
+        # all_gists = (
+        #     (await self.queries.query(Queries.user_gists()))
+        #     .get("data", {})
+        #     .get("viewer", {})
+        #     # .get("gists", {})
+        #     # .get("nodes", [])
+        # )
+        # print("Gists: " + str(all_gists))
+
+        # user_gists = all_gists.get("gists", {}).get("nodes", [])
+
+        # for gist in user_gists:
+        #     name = gist.get("files", []).get("name", "Other")
+        #     resourcePath = gist.get("resourcePath")
+        #     description = gist.get("description")
+        #     #color = gist.get("files", {}).get("language", {}).get("color")
+        #     # self._gists.add({
+        #     #         "name": name,
+        #     #         "resourcePath": resourcePath,
+        #     #         "description": description,
+        #     #         "color": color
+        #     # })
+        #     self._gists[name] = {
+        #             "name": name,
+        #             "resourcePath": resourcePath,
+        #             "description": description,
+        #             #"color": color
+        #     }
+
+        # return self._gists
 
     @property
     async def languages_proportional(self) -> Dict:
