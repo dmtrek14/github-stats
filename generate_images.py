@@ -104,8 +104,8 @@ async def generate_gists(s: Stats) -> None:
     #print("Gist count in generate_gists method: " + str(len(my_gists)))
     #print(my_gists)
     #if my_gists is not None:
-    for i, (gist, data) in enumerate(my_gists):
-            print(i, gist, data)
+    for i, (gist, data) in enumerate(my_gists.items()):
+            print("index: {}, key: {}, value: {}".format(i, gist, data))
             # resourcePath = data.get("resourcePath")
             # name = data.get("name")
             # description = data.get("description")
