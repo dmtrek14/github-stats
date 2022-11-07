@@ -459,7 +459,7 @@ class Stats(object):
                 if gist is None:
                      continue
                 gist_id = gist.get("id")
-                print(gist)
+                #print(gist)
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 name = gist["files"][0]["name"]

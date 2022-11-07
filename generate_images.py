@@ -102,13 +102,13 @@ async def generate_gists(s: Stats) -> None:
     gist_list = ""
     my_gists = await s.gists
     #print("Gist count in generate_gists method: " + str(len(my_gists)))
-    print(my_gists)
+    #print(my_gists)
     #if my_gists is not None:
     for (gist, data) in enumerate(my_gists):
             print(gist)
-            resourcePath = data.get("resourcePath")
-            name = data.get("name")
-            description = data.get("description")
+            # resourcePath = data.get("resourcePath")
+            # name = data.get("name")
+            # description = data.get("description")
             gist_list += f"""
             <span>{gist}</span><br/>
 
