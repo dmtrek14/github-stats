@@ -459,17 +459,15 @@ class Stats(object):
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 name = gist["files"][0]["name"]
-                lang = gist["files"][0]["language"]["color"]
-                print(lang)
-                #color = gist["files"][0]["language"]["color"]
+                color = gist["files"][0]["language"]["color"]
                 if gist_id in gists:
                     continue
-                        #gists[resourcePath]["description"] = description
                 else:
                         gists[gist_id] = {
                             "resourcePath": resourcePath,
                             "description": description,
-                            "name": name
+                            "name": name,
+                            "color": color
                         }                 
 
             if owned_repos.get("pageInfo", {}).get(

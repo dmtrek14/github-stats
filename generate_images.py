@@ -163,7 +163,7 @@ async def main() -> None:
             exclude_langs=excluded_langs,
             ignore_forked_repos=ignore_forked_repos,
         )
-        await asyncio.gather(generate_languages(s), generate_gists(s), generate_overview(s))
+        await asyncio.gather(generate_gists(s), generate_languages(s), generate_overview(s))
 
 
 if __name__ == "__main__":
