@@ -105,6 +105,7 @@ async def generate_gists(s: Stats) -> None:
                 {gist_len}
             </span>
         """
+    print("Gists: " + len(my_gists))
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)

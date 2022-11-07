@@ -449,7 +449,7 @@ Languages:
             for gist in user_gists:
                 # if gist is None:
                 #     continue
-                name = gits.get("resourcePath")
+                name = gist.get("resourcePath")
                 #name = gist.get("node", {}).get("id", "Other")
                 #name = gist.get("node", {}).get("files", []).get("name")
                 #resourcePath = gist.get("node", {}).get("resourcePath")
