@@ -450,14 +450,14 @@ class Stats(object):
                 #.get("edges", [])
                 .get("nodes", [])
             )
-            gists = dict()
-            print("Gists at line 449: " + str(len(user_gists)))
+            #gists = await self.gists
+            #print("Gists at line 449: " + str(len(user_gists)))
             
             for gist in user_gists:
                 if gist is None:
                      continue
-                name = gist.get("resourcePath")
-                #name = gist.get("files", []).get("name")
+                #name = gist.get("resourcePath")
+                name = gist.get("files", []).get("name", 0)
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 #color = gist.get("files", []).get("language", {}).get("color")
@@ -471,8 +471,9 @@ class Stats(object):
                 #             "description": description,
                 #     }
                 # else:
-                gists[name] = {
-                            "resourcePath": resourcePath,
+                gists[resourcePath] = {
+                            #"resourcePath": resourcePath,
+                            "name": name,
                             "description": description,
                         }
                 

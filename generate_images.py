@@ -99,17 +99,15 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
     
     gist_list = ""
-    my_gists = await s.gists
-
+    #my_gists = await s.gists
     gists = await s.gists
     for i, (gist, data) in enumerate(gists):
         resourcePath = data.get("resourcePath")
         #gist_name = gist.get("files", []).get("name")
         description = data.get("description")
         gist_list += f"""
-<span>
-        {resourcePath}
- </span><br/>
+<span>{resourcePath}</span><br/>
+
 """
     # languages = await s.languages
     # print("Name in my_test method: " + name)
