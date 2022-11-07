@@ -98,8 +98,10 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
 
     gist_list = ""
-    my_test_gists = await s.queries.user_gists()
-    my_gists = my_test_gists.get("data", {}).get("viewer", {}).get("gists", {}).get("nodes", [])
+    #my_test_gists = await s.queries.user_gists()
+    #my_gists = my_test_gists.get("data", {}).get("viewer", {}).get("gists", {}).get("nodes", [])
+    my_gists = await s.gists
+    more_gists = s._gists
     #await s.queries.user_gists()
     # gist_len = len(my_gists)
     # gist_list += f"""
@@ -108,6 +110,7 @@ async def generate_gists(s: Stats) -> None:
     #         </span>
     #     """
     print("Gist count in generate_images line 108: " + str(len(my_gists)))
+    print("Gist count in generate_images line 113: " + str(len(more_gists)))
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)
