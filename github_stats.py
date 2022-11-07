@@ -443,6 +443,7 @@ class Stats(object):
                             "occurrences": 1,
                             "color": lang.get("node", {}).get("color"),
                         }
+                    print(lang)
 
             user_gists = (
                 raw_results.get("data", {})
@@ -454,29 +455,21 @@ class Stats(object):
             gists = dict()
             print("Gists at line 449: " + str(len(user_gists)))
             
-            # ordered_gists = user_gists.get("nodes",[])
-            #ordered_gists = user_gists.get("edges",[])
-
             for gist in user_gists:
                 if gist is None:
                      continue
-                name = gist.get("resourcePath")
-                #name = gist.get("node", {}).get("id", "Other")
-                #name = gist.get("files", []).get("name")
-                #resourcePath = gist.get("node", {}).get("resourcePath")
+                #name = gist.get("resourcePath")
+                name = gist.get("files", []).get("name")
                 resourcePath = gist.get("resourcePath")
-               # description = gist.get("node", {}).get("description")
                 description = gist.get("description")
-                #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
                 #color = gist.get("files", []).get("language", {}).get("color")
-                #gists = await self.gists
                 
                 keys = ["name", "resourcePath", "description"]
                 values = [name, resourcePath, description]
                 for i in range(len(keys)):
                     gists[keys[i]] = values[i]
                 
-                print(gists)
+                #print(gists)
 
                 # if name in gists:
                 #     gists[name].append(name)
