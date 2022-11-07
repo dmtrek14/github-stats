@@ -115,8 +115,10 @@ div.ellipsis {
 <h2>Danielle M.'s Gists</h2>
 
 <div class="container-test">
-dmtrek14
 
+            <span>0</span><br/>
+
+            
 
 </div>
 
