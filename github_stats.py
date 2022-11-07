@@ -251,6 +251,7 @@ query {
             viewer {{
                 gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
                     nodes {{
+                        id
                         resourcePath
                         description
                         createdAt
@@ -460,18 +461,21 @@ class Stats(object):
                      continue
                 #name = gist.get("resourcePath")
                 #name = gist.get("files", []).get("name", 0)
+                gist_id = gist.get("id")
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
-                files = gist["files"][0]["name"]
-                print(files)
+                name = gist["files"][0]["name"]
+                lang = gist["files"][0]["language"]
+                print(lang)
                 #color = gist.get("files", []).get("language", {}).get("color")
-                if resourcePath in gists:
+                if gist_id in gists:
                     continue
                         #gists[resourcePath]["description"] = description
                 else:
-                        gists[resourcePath] = {
+                        gists[gist_id] = {
                             "resourcePath": resourcePath,
                             "description": description,
+                            "name": name
                         }                
                 # keys = ["resourcePath", "description"]
                 # values = [resourcePath, description]

@@ -63,11 +63,7 @@ async def generate_languages(s: Stats) -> None:
         (await s.languages).items(), reverse=True, key=lambda t: t[1].get("size")
     )
     delay_between = 150
-    print(sorted_languages)
     for i, (lang, data) in enumerate(sorted_languages):
-        print(i)
-        print(lang)
-        print(data)
         color = data.get("color")
         color = color if color is not None else "#000000"
         progress += (
@@ -106,22 +102,24 @@ async def generate_gists(s: Stats) -> None:
     gists = await s.gists
     print("Gist count in generate_gists method: " + str(len(gists)))
     print(gists)
-    # for i, (gist, data) in enumerate(gists):
-    #     print(i)
-    #     print(gist)
-    #     print(data)
-#         resourcePath = data.get("resourcePath")
-#         #gist_name = gist.get("files", []).get("name")
-#         description = data.get("description")
-#         gist_list += f"""
-# <span>{resourcePath}</span><br/>
+    for i, (gist, data) in enumerate(gists):
+        # print(i)
+        # print(gist)
+        # print(data)
+        resourcePath = data.get("resourcePath")
+        #gist_name = gist.get("files", []).get("name")
+        name = data.get("name")
+        description = data.get("description")
+        gist_list += f"""
+<span>{resourcePath}</span><br/>
 
-# """
-    gist_list += f"""
-    <span>A gist</span>
-    """
+"""
+    # gist_list += f"""
+    # <span>A gist</span>
+    # """
 
     output = re.sub(r"{{ name }}", await s.name, output)
+    output = re.sub(r"{{ username }}", await s.username, output)
     output = re.sub(r"{{ gist_list }}", gist_list, output)
 
     generate_output_folder()
