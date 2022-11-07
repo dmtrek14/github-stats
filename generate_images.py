@@ -26,6 +26,19 @@ def generate_output_folder() -> None:
 # Individual Image Generation Functions
 ################################################################################
 
+async def my_test(s: Stats) -> None:
+    """
+    Generate an SVG badge with summary statistics
+    :param s: Represents user's GitHub statistics
+    """
+
+    name = await s.name
+    gists = await s.gists
+    languages = await s.languages
+    print("Name in my_test method: " + name)
+    print("Gist count in my_test method: " + str(len(gists)))
+    print("Lang count in my_test method: " + str(len(languages)))
+
 
 async def generate_overview(s: Stats) -> None:
     """
@@ -169,7 +182,7 @@ async def main() -> None:
             exclude_langs=excluded_langs,
             ignore_forked_repos=ignore_forked_repos,
         )
-        await asyncio.gather(generate_languages(s), generate_overview(s), generate_gists(s))
+        await asyncio.gather(generate_languages(s), generate_overview(s), my_test(s))
 
 
 if __name__ == "__main__":
