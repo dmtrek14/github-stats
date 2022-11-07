@@ -551,29 +551,36 @@ Languages:
         """
         if self._gists is not None:
              return self._gists
-        #self._gists = set()
-        await self.get_stats()
-        assert self._gists is not None
-        return self._gists
-        # all_gists = (
-        #     (await self.queries.query(Queries.user_gists()))
-        #     .get("data", {})
-        #     .get("viewer", {})
-        #     .get("gists", {})
-        # )
-        # for gist in all_gists.get("edges",[]):
-        #     name = gist.get("node", {}).get("files", []).get("name", "Other")
-        #     resourcePath = gist.get("resourcePath")
-        #     description = gist.get("description")
-        #     color = gist.get("files", {}).get("language", {}).get("color")
-        #     self._gists.add({
-        #             "name": name,
-        #             "resourcePath": resourcePath,
-        #             "description": description,
-        #             "color": color
-        #     })
-
+        self._gists = dict()
+        # await self.get_stats()
+        # assert self._gists is not None
         # return self._gists
+        all_gists = (
+            (await self.queries.query(Queries.user_gists()))
+            .get("data", {})
+            .get("viewer", {})
+            .get("gists", {})
+            .get("nodes", [])
+        )
+        for gist in all_gists:
+            name = gist.get("files", []).get("name", "Other")
+            resourcePath = gist.get("resourcePath")
+            description = gist.get("description")
+            #color = gist.get("files", {}).get("language", {}).get("color")
+            # self._gists.add({
+            #         "name": name,
+            #         "resourcePath": resourcePath,
+            #         "description": description,
+            #         "color": color
+            # })
+            self._gists[name] = {
+                    "name": name,
+                    "resourcePath": resourcePath,
+                    "description": description,
+                    #"color": color
+            }
+
+        return self._gists
 
     @property
     async def languages_proportional(self) -> Dict:
