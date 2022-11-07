@@ -350,22 +350,27 @@ class Stats(object):
         :return: summary of all available statistics
         """
         languages = await self.languages_proportional
+        gists = await self.gists
         #test_gists = await self.gists
+        formatted_gists = "\n - ".join(
+            [f"{k}" for k, v in gists.items()]
+        )
         formatted_languages = "\n  - ".join(
             [f"{k}: {v:0.4f}%" for k, v in languages.items()]
         )
         lines_changed = await self.lines_changed
         return f"""Name: {await self.name}
-Stargazers: {await self.stargazers:,}
-Forks: {await self.forks:,}
-All-time contributions: {await self.total_contributions:,}
-Repositories with contributions: {len(await self.repos)}
-Lines of code added: {lines_changed[0]:,}
-Lines of code deleted: {lines_changed[1]:,}
-Lines of code changed: {lines_changed[0] + lines_changed[1]:,}
-Project page views: {await self.views:,}
-Languages:
-  - {formatted_languages}"""
+            Stargazers: {await self.stargazers:,}
+            Forks: {await self.forks:,}
+            All-time contributions: {await self.total_contributions:,}
+            Repositories with contributions: {len(await self.repos)}
+            Lines of code added: {lines_changed[0]:,}
+            Lines of code deleted: {lines_changed[1]:,}
+            Lines of code changed: {lines_changed[0] + lines_changed[1]:,}
+            Project page views: {await self.views:,}
+            Gists: - {formatted_gists}
+            Languages:
+            - {formatted_languages}"""
 
     async def get_stats(self) -> None:
         """
@@ -452,26 +457,26 @@ Languages:
             # ordered_gists = user_gists.get("nodes",[])
             #ordered_gists = user_gists.get("edges",[])
 
-            # for gist in user_gists:
-            #     if gist is None:
-            #          continue
-            #     name = gist.get("resourcePath")
-            #     #name = gist.get("node", {}).get("id", "Other")
-            #     #name = gist.get("files", []).get("name")
-            #     #resourcePath = gist.get("node", {}).get("resourcePath")
-            #     resourcePath = gist.get("resourcePath")
-            #    # description = gist.get("node", {}).get("description")
-            #     description = gist.get("description")
-            #     #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
-            #     #color = gist.get("files", []).get("language", {}).get("color")
-            #     #gists = await self.gists
+            for gist in user_gists:
+                if gist is None:
+                     continue
+                name = gist.get("resourcePath")
+                #name = gist.get("node", {}).get("id", "Other")
+                #name = gist.get("files", []).get("name")
+                #resourcePath = gist.get("node", {}).get("resourcePath")
+                resourcePath = gist.get("resourcePath")
+               # description = gist.get("node", {}).get("description")
+                description = gist.get("description")
+                #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
+                #color = gist.get("files", []).get("language", {}).get("color")
+                #gists = await self.gists
                 
-            #     keys = ["name", "resourcePath", "description"]
-            #     values = [name, resourcePath, description]
-            #     for i in range(len(keys)):
-            #         gists[keys[i]] = values[i]
+                keys = ["name", "resourcePath", "description"]
+                values = [name, resourcePath, description]
+                for i in range(len(keys)):
+                    gists[keys[i]] = values[i]
                 
-            #     print(gists)
+                print(gists)
 
                 # if name in gists:
                 #     gists[name].append(name)
@@ -493,8 +498,8 @@ Languages:
                 # }
                 
                 #print("Gists at line 482: " + str(len(gists)))
-            # self._gists = gists   
-            # print("Gists at line 497: " + str(len(gists)))
+            self._gists = gists   
+            print("Gists at line 497: " + str(len(gists)))
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False
