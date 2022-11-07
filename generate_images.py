@@ -99,11 +99,11 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
     
     gist_list = ""
-    gists = await s.gists
-    print("Gist count in generate_gists method: " + str(len(gists)))
-    print(gists)
-    if gists is not None:
-        for (gist, data) in enumerate(gists):
+    my_gists = await s.gists
+    print("Gist count in generate_gists method: " + str(len(my_gists)))
+    print(my_gists)
+    if my_gists is not None:
+        for (gist, data) in enumerate(my_gists):
             resourcePath = data.get("resourcePath")
             name = data.get("name")
             description = data.get("description")
@@ -117,7 +117,7 @@ async def generate_gists(s: Stats) -> None:
         """
 
     output = re.sub(r"{{ name }}", await s.name, output)
-    output = re.sub(r"{{ username }}", await s.username, output)
+    output = re.sub(r"{{ username }}", s.username, output)
     output = re.sub(r"{{ gist_list }}", gist_list, output)
 
     generate_output_folder()
