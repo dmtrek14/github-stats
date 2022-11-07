@@ -466,9 +466,11 @@ class Stats(object):
                 print(files)
                 #color = gist.get("files", []).get("language", {}).get("color")
                 if resourcePath in gists:
-                        gists[resourcePath]["description"] = description
+                    continue
+                        #gists[resourcePath]["description"] = description
                 else:
                         gists[resourcePath] = {
+                            "resourcePath": resourcePath,
                             "description": description,
                         }                
                 # keys = ["resourcePath", "description"]
