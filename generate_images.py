@@ -89,6 +89,9 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
     with open("generated/languages.svg", "w") as f:
         f.write(output)
 
+
+
+
 async def generate_gists(s: Stats) -> None:
     """
     Generate an SVG badge with list of gists
@@ -101,7 +104,7 @@ async def generate_gists(s: Stats) -> None:
 
     my_gists = await s.gists
     more_gists = (await s.gists).items()
-
+    test_gists = s._gists
     # gist_len = len(my_gists)
     # gist_list += f"""
     #         <span>
@@ -110,6 +113,7 @@ async def generate_gists(s: Stats) -> None:
     #     """
     print("Gist count in generate_images line 108: " + str(len(my_gists)))
     print("Gist count in generate_images line 113: " + str(len(more_gists)))
+    print("Gist count in generate_images line 114: " + str(len(test_gists)))
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)

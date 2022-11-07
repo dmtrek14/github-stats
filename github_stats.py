@@ -463,6 +463,7 @@ class Stats(object):
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 #color = gist.get("files", []).get("language", {}).get("color")
+                gists = await self.gists
                 
                 keys = ["name", "resourcePath", "description"]
                 values = [name, resourcePath, description]
