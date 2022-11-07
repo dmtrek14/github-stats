@@ -62,6 +62,9 @@ async def generate_languages(s: Stats) -> None:
     sorted_languages = sorted(
         (await s.languages).items(), reverse=True, key=lambda t: t[1].get("size")
     )
+    test_gists = await s.gists
+    print("Gist count in generate_languages method: " + str(len(test_gists)))
+    print("Lang count in gist method: " + str(len(sorted_languages)))
     delay_between = 150
     for i, (lang, data) in enumerate(sorted_languages):
         color = data.get("color")
