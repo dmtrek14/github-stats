@@ -462,7 +462,7 @@ class Stats(object):
                 #name = gist.get("files", []).get("name", 0)
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
-                files = gist["files"]
+                files = gist["files"][0]
                 print(files)
                 #color = gist.get("files", []).get("language", {}).get("color")
                 if resourcePath in gists:
