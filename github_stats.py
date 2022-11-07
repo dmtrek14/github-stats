@@ -343,7 +343,7 @@ class Stats(object):
         self._repos: Optional[Set[str]] = None
         self._lines_changed: Optional[Tuple[int, int]] = None
         self._views: Optional[int] = None
-        self._gists: Optional[Dict[str], Any] = None
+        self._gists: Optional[Dict[str, Any]] = None
 
     async def to_str(self) -> str:
         """
@@ -469,6 +469,10 @@ class Stats(object):
                     print("name in gists")
                         #languages[name]["size"] += lang.get("size", 0)
                         #languages[name]["occurrences"] += 1
+                    gists[name] = {
+                            "resourcePath": resourcePath,
+                            "description": description,
+                    }
                 else:
                     gists[name] = {
                             "resourcePath": resourcePath,
