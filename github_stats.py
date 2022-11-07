@@ -457,7 +457,7 @@ class Stats(object):
                 if gist is None:
                      continue
                 #name = gist.get("resourcePath")
-                name = gist.get("files", []).get("name", 0)
+                #name = gist.get("files", []).get("name", 0)
                 resourcePath = gist.get("resourcePath")
                 description = gist.get("description")
                 #color = gist.get("files", []).get("language", {}).get("color")
@@ -473,7 +473,7 @@ class Stats(object):
                 # else:
                 gists[resourcePath] = {
                             #"resourcePath": resourcePath,
-                            "name": name,
+                            #"name": name,
                             "description": description,
                         }
                 
