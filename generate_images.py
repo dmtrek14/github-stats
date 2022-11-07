@@ -98,7 +98,9 @@ async def generate_gists(s: Stats) -> None:
         output = f.read()
 
     gist_list = ""
-    my_gists = await s.gists
+    my_test_gists = await s.queries.user_gists()
+    my_gists = my_test_gists.get("data", {}).get("viewer", {}).get("gists", {}).get("nodes", [])
+    #await s.queries.user_gists()
     # gist_len = len(my_gists)
     # gist_list += f"""
     #         <span>
@@ -111,7 +113,8 @@ async def generate_gists(s: Stats) -> None:
         # print(data)
         print("Gist number in generate_images line 112: " + str(i))
         resourcePath = data.get("resourcePath")
-        name = data.get("name")
+        #name = data.get("name")
+        name = gist.get("files", []).get("name")
         description = data.get("description")
         #color = data.get("color")
         # color = color if color is not None else "#000000"
