@@ -464,7 +464,7 @@ Languages:
                 description = gist.get("description")
                 #color = gist.get("node",{}).get("files", []).get("language", {}).get("color")
                 #color = gist.get("files", []).get("language", {}).get("color")
-                gists = await self.gists
+                #gists = await self.gists
                 
                 keys = ["name", "resourcePath", "description"]
                 values = [name, resourcePath, description]
@@ -494,7 +494,7 @@ Languages:
                 
                 #print("Gists at line 482: " + str(len(gists)))
             self._gists = gists   
-                    
+            print("Gists at line 497: " + str(len(gists)))
 
             if owned_repos.get("pageInfo", {}).get(
                 "hasNextPage", False

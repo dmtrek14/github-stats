@@ -105,10 +105,11 @@ async def generate_gists(s: Stats) -> None:
                 {gist_len}
             </span>
         """
-    print("Gists: " + str(len(my_gists)))
+    print("Gist count in generate_images line 108: " + str(len(my_gists)))
 
     for i, (gist, data) in enumerate(my_gists):
         # print(data)
+        print("Gist number in generate_images line 112: " + str(i))
         resourcePath = data.get("resourcePath")
         name = data.get("name")
         description = data.get("description")
