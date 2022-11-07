@@ -99,12 +99,12 @@ async def generate_gists(s: Stats) -> None:
 
     gist_list = ""
     my_gists = await s.gists
-    gist_len = len(my_gists)
-    gist_list += f"""
-            <span>
-                {gist_len}
-            </span>
-        """
+    # gist_len = len(my_gists)
+    # gist_list += f"""
+    #         <span>
+    #             {gist_len}
+    #         </span>
+    #     """
     print("Gist count in generate_images line 108: " + str(len(my_gists)))
 
     for i, (gist, data) in enumerate(my_gists):
