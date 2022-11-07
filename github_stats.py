@@ -245,39 +245,39 @@ query {
         """
         :return: GraphQL query to get all user gists
         """
-        return """
-        query {
-            viewer {
-                gists(first: 20, privacy: PUBLIC, orderBy: {field: CREATED_AT, direction: DESC}) {
-                    nodes {
+        return f"""
+        query {{
+            viewer {{
+                gists(first: 20, privacy: PUBLIC, orderBy: {{field: CREATED_AT, direction: DESC}}) {{
+                    nodes {{
                         resourcePath
                         description
                         createdAt
-                        files {
+                        files {{
                             name
-                            language {
+                            language {{
                                 name
                                 color
-                            }
-                        }
-                    }
-                    edges {
-                        node {
+                            }}
+                        }}
+                    }}
+                    edges {{
+                        node {{
                             resourcePath
                             description
                             createdAt
-                            files {
+                            files {{
                                 name
-                                language {
+                                language {{
                                     name
                                     color
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+                                }}
+                            }}
+                        }}
+                    }}
+                }}
+            }}
+        }}
 """
 
 
