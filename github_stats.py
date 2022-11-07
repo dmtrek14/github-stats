@@ -465,30 +465,33 @@ Languages:
                 #color = gist.get("files", []).get("language", {}).get("color")
                 gists = await self.gists
                 
-                new_gist = {
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    #"color": color
-                }
-                gists.append(new_gist.copy())
+                keys = ["name", "resourcePath", "description"]
+                values = [name, resourcePath, description]
+                for i in range(len(keys)):
+                    gists[keys[i]] = values[i]
+                print(gists)
+
+                # if name in gists:
+                #     gists[name].append(name)
+                # else:
+                #     gists[name] = name
+                # new_gist = {
+                #     "name": name,
+                #     "resourcePath": resourcePath,
+                #     "description": description,
+                #     #"color": color
+                # }
+                # gists.append(new_gist.copy())
                 
-                gists[name] = {
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    #"color": color
-                }
+                # gists[name] = {
+                #     "name": name,
+                #     "resourcePath": resourcePath,
+                #     "description": description,
+                #     #"color": color
+                # }
                 
                 print("Gists at line 482: " + str(len(gists)))
                 
-            #     gists.add({
-            #         "name": name,
-            #         "resourcePath": resourcePath,
-            #         "description": description,
-            #         "color": color
-            #     }
-            #     )
                     
 
             if owned_repos.get("pageInfo", {}).get(
