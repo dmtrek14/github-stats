@@ -26,19 +26,6 @@ def generate_output_folder() -> None:
 # Individual Image Generation Functions
 ################################################################################
 
-async def my_test(s: Stats) -> None:
-    """
-    Generate an SVG badge with summary statistics
-    :param s: Represents user's GitHub statistics
-    """
-
-    name = await s.name
-    gists = await s.gists
-    languages = await s.languages
-    print("Name in my_test method: " + name)
-    print("Gist count in my_test method: " + str(len(gists)))
-    print("Lang count in my_test method: " + str(len(languages)))
-
 
 async def generate_overview(s: Stats) -> None:
     """
@@ -106,42 +93,18 @@ fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8z"></path></svg>
         f.write(output)
 
 
-
-async def generate_gists(s: Stats) -> None:
+async def my_test(s: Stats) -> None:
     """
-    Generate an SVG badge with gists
+    Generate an SVG badge with summary statistics
     :param s: Represents user's GitHub statistics
     """
-    with open("templates/gists.svg", "r") as f:
-        output = f.read()
 
-    gist_list = ""
-
-    my_gists = await s.gists
-
-    print("Gist count in generate_gists line 108: " + str(len(my_gists)))
-
-    for i, (gist, data) in enumerate(my_gists):
-        # print(data)
-        print("Gist number in generate_images line 112: " + str(i))
-        resourcePath = data.get("resourcePath")
-        #name = data.get("name")
-        name = gist.get("files", []).get("name")
-        description = data.get("description")
-        #color = data.get("color")
-        # color = color if color is not None else "#000000"
-        gist_list += f"""
-<span>
-        {resourcePath}
- </span><br/>
-"""
-
-    #output = re.sub(r"{{ name }}", await s.name, output)
-    output = re.sub(r"{{ gist_list }}", gist_list, output)
-
-    generate_output_folder()
-    with open("generated/gists.svg", "w") as f:
-        f.write(output)
+    name = await s.name
+    gists = await s.gists
+    languages = await s.languages
+    print("Name in my_test method: " + name)
+    print("Gist count in my_test method: " + str(len(gists)))
+    print("Lang count in my_test method: " + str(len(languages)))
 
 ################################################################################
 # Main Function
