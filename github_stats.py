@@ -432,6 +432,7 @@ class Stats(object):
                 for lang in repo.get("languages", {}).get("edges", []):
                     name = lang.get("node", {}).get("name", "Other")
                     languages = await self.languages
+                    print(len(languages))
                     if name.lower() in exclude_langs_lower:
                         continue
                     if name in languages:
@@ -443,7 +444,7 @@ class Stats(object):
                             "occurrences": 1,
                             "color": lang.get("node", {}).get("color"),
                         }
-                    print(lang)
+                    # print(lang)
 
             user_gists = (
                 raw_results.get("data", {})
@@ -564,47 +565,47 @@ class Stats(object):
         """
         if self._gists is not None:
              return self._gists
-        self._gists = dict()
-        # await self.get_stats()
-        # assert self._gists is not None
-        # return self._gists
-        all_gists = (
-            (await self.queries.query(Queries.user_gists()))
-            .get("data", {})
-            .get("viewer", {})
-            # .get("gists", {})
-            # .get("nodes", [])
-        )
-        print("Gists: " + str(all_gists))
-
-        user_gists = all_gists.get("gists", {}).get("nodes", [])
-
-        for gist in user_gists:
-            name = gist.get("files", []).get("name", "Other")
-            resourcePath = gist.get("resourcePath")
-            description = gist.get("description")
-            #color = gist.get("files", {}).get("language", {}).get("color")
-            # self._gists.add({
-            #         "name": name,
-            #         "resourcePath": resourcePath,
-            #         "description": description,
-            #         "color": color
-            # })
-
-            keys = ["name", "resourcePath", "description"]
-            values = [name, resourcePath, description]
-            for i in range(len(keys)):
-                self._gists[keys[i]] = values[i]
-                
-            print(self._gists)
-            self._gists[name] = {
-                    "name": name,
-                    "resourcePath": resourcePath,
-                    "description": description,
-                    #"color": color
-            }
-
+        #self._gists = dict()
+        await self.get_stats()
+        assert self._gists is not None
         return self._gists
+        # all_gists = (
+        #     (await self.queries.query(Queries.user_gists()))
+        #     .get("data", {})
+        #     .get("viewer", {})
+        #     # .get("gists", {})
+        #     # .get("nodes", [])
+        # )
+        # print("Gists: " + str(all_gists))
+
+        # user_gists = all_gists.get("gists", {}).get("nodes", [])
+
+        # for gist in user_gists:
+        #     name = gist.get("files", []).get("name", "Other")
+        #     resourcePath = gist.get("resourcePath")
+        #     description = gist.get("description")
+        #     #color = gist.get("files", {}).get("language", {}).get("color")
+        #     # self._gists.add({
+        #     #         "name": name,
+        #     #         "resourcePath": resourcePath,
+        #     #         "description": description,
+        #     #         "color": color
+        #     # })
+
+        #     keys = ["name", "resourcePath", "description"]
+        #     values = [name, resourcePath, description]
+        #     for i in range(len(keys)):
+        #         self._gists[keys[i]] = values[i]
+                
+        #     print(self._gists)
+        #     self._gists[name] = {
+        #             "name": name,
+        #             "resourcePath": resourcePath,
+        #             "description": description,
+        #             #"color": color
+        #     }
+
+        # return self._gists
 
     @property
     async def languages_proportional(self) -> Dict:
