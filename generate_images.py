@@ -89,6 +89,36 @@ async def generate_languages(s: Stats) -> None:
     with open("generated/languages.svg", "w") as f:
         f.write(output)
 
+    #and now do the gists
+    with open("templates/gists.svg", "r") as f:
+        output = f.read()
+    
+    gist_list = ""
+    my_gists = await s.gists
+    print("Gist count in generate_gists method: " + str(len(my_gists)))
+    print(my_gists)
+    if my_gists is not None:
+            for (gist, data) in enumerate(my_gists):
+                resourcePath = data.get("resourcePath")
+                name = data.get("name")
+                description = data.get("description")
+                gist_list += f"""
+                <span>{name}</span><br/>
+
+                """
+    else:
+            gist_list += f"""
+            <span>None</span>
+            """
+
+    output = re.sub(r"{{ name }}", await s.name, output)
+    output = re.sub(r"{{ username }}", s.username, output)
+    output = re.sub(r"{{ gist_list }}", gist_list, output)
+
+    generate_output_folder()
+    with open("generated/gists.svg", "w") as f:
+        f.write(output)
+
 
 async def generate_gists(s: Stats) -> None:
     """
@@ -163,7 +193,7 @@ async def main() -> None:
             exclude_langs=excluded_langs,
             ignore_forked_repos=ignore_forked_repos,
         )
-        await asyncio.gather(generate_gists(s), generate_languages(s), generate_overview(s))
+        await asyncio.gather(generate_languages(s), generate_overview(s))
 
 
 if __name__ == "__main__":
